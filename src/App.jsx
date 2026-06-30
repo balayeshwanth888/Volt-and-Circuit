@@ -8,9 +8,11 @@ import ShopPage from "./pages/ShopPage";
 import AboutPage from "./pages/AboutPage";
 import ContactPage from "./pages/ContactPage";
 import CartPage from "./pages/CartPage";
+import WishlistPage from "./pages/WishlistPage";
 import useAuth from "./hooks/useAuth";
 import useCart from "./hooks/useCart";
 import useProducts from "./hooks/useProducts";
+import useWishlist from "./hooks/useWishlist";
 
 /**
  * Top-level app component. Owns only the "route" state (which screen is
@@ -50,6 +52,9 @@ export default function App() {
     resetCart,
   } = useCart(user?.email ?? null);
   const { products, loadingProducts, productError, fetchProducts } = useProducts();
+  const { wishlist, wishlistCount, isWishlisted, toggleWishlist, removeFromWishlist } = useWishlist(
+    user?.email ?? null
+  );
 
   // Load the catalog the first time the user reaches home or products.
   useEffect(() => {
@@ -125,6 +130,7 @@ export default function App() {
         route={route}
         setRoute={setRoute}
         cartCount={cartCount}
+        wishlistCount={wishlistCount}
         cartBounce={cartBounce}
         onLogout={handleLogoutClick}
         userName={user?.name}
@@ -148,6 +154,8 @@ export default function App() {
             onAdd={addToCart}
             onQty={updateQty}
             taggedId={taggedId}
+            isWishlisted={isWishlisted}
+            onToggleWishlist={toggleWishlist}
           />
         )}
         {route === "products" && (
@@ -160,10 +168,22 @@ export default function App() {
             onQty={updateQty}
             taggedId={taggedId}
             onRetry={fetchProducts}
+            isWishlisted={isWishlisted}
+            onToggleWishlist={toggleWishlist}
           />
         )}
         {route === "about" && <AboutPage />}
         {route === "contact" && <ContactPage />}
+        {route === "wishlist" && (
+          <WishlistPage
+            wishlist={wishlist}
+            cart={cart}
+            onAdd={addToCart}
+            onQty={updateQty}
+            onToggleWishlist={toggleWishlist}
+            onBrowse={() => setRoute("products")}
+          />
+        )}
         {route === "cart" && (
           <CartPage
             cart={cart}

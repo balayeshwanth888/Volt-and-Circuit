@@ -1,13 +1,14 @@
-import { ShoppingCart, LogOut } from "lucide-react";
+import { ShoppingCart, Heart, LogOut } from "lucide-react";
 import Brand from "./Brand";
 
 /**
  * Top navigation bar shown on every authenticated page.
  *
  * @param {string} route - current route, used to highlight the active link
- *   one of: "home" | "products" | "about" | "contact" | "cart"
+ *   one of: "home" | "products" | "about" | "contact" | "wishlist" | "cart"
  * @param {(route: string) => void} setRoute - switches route (replace with react-router navigate() in a real app)
  * @param {number} cartCount - distinct products in cart, shown as a badge
+ * @param {number} wishlistCount - saved products, shown as a badge
  * @param {boolean} cartBounce - briefly true right after an add-to-cart, triggers the bounce animation
  * @param {() => void} onLogout - opens the logout confirmation
  * @param {string} userName - signed-in user's name, shown in the greeting
@@ -19,7 +20,7 @@ const NAV_LINKS = [
   { route: "contact", label: "Contact Us" },
 ];
 
-export default function Navbar({ route, setRoute, cartCount, cartBounce, onLogout, userName }) {
+export default function Navbar({ route, setRoute, cartCount, wishlistCount, cartBounce, onLogout, userName }) {
   return (
     <nav className="ec-nav">
       <div
@@ -37,6 +38,15 @@ export default function Navbar({ route, setRoute, cartCount, cartBounce, onLogou
               {link.label}
             </button>
           ))}
+          <button
+            className={`ec-nav-link flex items-center ${route === "wishlist" ? "active" : ""}`}
+            style={{ gap: "0.4rem" }}
+            onClick={() => setRoute("wishlist")}
+          >
+            <Heart size={18} />
+            Wishlist
+            {wishlistCount > 0 && <span className="ec-badge">{wishlistCount}</span>}
+          </button>
           <button
             className={`ec-nav-link flex items-center ${route === "cart" ? "active" : ""}`}
             style={{ gap: "0.4rem" }}

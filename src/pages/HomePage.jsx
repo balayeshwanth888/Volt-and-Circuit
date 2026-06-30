@@ -14,7 +14,17 @@ import ProductCard from "../components/ProductCard";
  * @param {(id: number, delta: number) => void} onQty
  * @param {number|null} taggedId
  */
-export default function HomePage({ onShopNow, products, loading, cart, onAdd, onQty, taggedId }) {
+export default function HomePage({
+  onShopNow,
+  products,
+  loading,
+  cart,
+  onAdd,
+  onQty,
+  taggedId,
+  isWishlisted,
+  onToggleWishlist,
+}) {
   const features = [
     { Icon: Truck, title: "Fast shipping", text: "Most orders ship within 24 hours." },
     { Icon: ShieldCheck, title: "2-year warranty", text: "Every product is covered, no fine print." },
@@ -103,6 +113,8 @@ export default function HomePage({ onShopNow, products, loading, cart, onAdd, on
                   onAdd={onAdd}
                   onQty={onQty}
                   tagged={taggedId === p.id}
+                  wishlisted={isWishlisted(p.id)}
+                  onToggleWishlist={onToggleWishlist}
                   style={{ animationDelay: `${i * 0.06}s` }}
                 />
               ))}
