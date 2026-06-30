@@ -106,7 +106,7 @@ export default function ContactPage() {
             <Phone size={20} style={{ color: "var(--accent)" }} />
             <div>
               <p className="font-bold text-sm mb-0.5">Phone</p>
-              <p className="text-sm" style={{ color: "var(--text-soft)" }}>+1 (555) 010-2025</p>
+              <p className="text-sm" style={{ color: "var(--text-soft)" }}>+91 78934 26888</p>
             </div>
           </div>
           <div className="ec-contact-card">

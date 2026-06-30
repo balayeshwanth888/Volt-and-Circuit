@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import ConfirmDialog from "./components/ConfirmDialog";
 import AuthScreen from "./pages/AuthScreen";
 import HomePage from "./pages/HomePage";
 import ShopPage from "./pages/ShopPage";
@@ -22,6 +23,7 @@ import useProducts from "./hooks/useProducts";
 export default function App() {
   const [route, setRoute] = useState("login");
   const [justSignedUp, setJustSignedUp] = useState(false);
+  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
 
   const {
     user,
@@ -73,9 +75,18 @@ export default function App() {
     }
   }, [signupSuccess, route, clearSignupSuccess]);
 
-  function handleLogout() {
+  function handleLogoutClick() {
+    setShowLogoutConfirm(true);
+  }
+
+  function confirmLogout() {
+    setShowLogoutConfirm(false);
     logout();
     setRoute("login");
+  }
+
+  function cancelLogout() {
+    setShowLogoutConfirm(false);
   }
 
   function handleSwitchMode(mode) {
@@ -115,8 +126,15 @@ export default function App() {
         setRoute={setRoute}
         cartCount={cartCount}
         cartBounce={cartBounce}
-        onLogout={handleLogout}
+        onLogout={handleLogoutClick}
         userName={user?.name}
+      />
+      <ConfirmDialog
+        open={showLogoutConfirm}
+        title="Log out?"
+        message="You'll need to sign in again to get back to your cart and account."
+        onConfirm={confirmLogout}
+        onCancel={cancelLogout}
       />
       <div key={route} className="ec-page-enter">
         {route === "home" && (
