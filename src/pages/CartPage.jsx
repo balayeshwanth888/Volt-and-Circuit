@@ -1,19 +1,32 @@
+import { useState } from "react";
 import { Check, ShoppingCart, ArrowRight, Sparkles } from "lucide-react";
 import CartRow from "../components/CartRow";
+import CheckoutModal from "../components/CheckoutModal";
 
 /**
  * The cart page. Renders one of three states: order-placed confirmation,
- * empty-cart prompt, or the basket itself.
+ * empty-cart prompt, or the basket itself. "Place order" opens a
+ * checkout modal collecting shipping/payment details before the order
+ * is actually marked as placed.
  *
  * @param {object[]} cart - cart items, each { id, title, price, image, qty }
  * @param {(id: number, delta: number) => void} onQty
  * @param {(id: number) => void} onRemove
  * @param {number} total - cart subtotal
  * @param {() => void} onPlaceOrder - marks the (fake) order as placed
- * @param {boolean} placed - true once "Place order" has been clicked
+ * @param {boolean} placed - true once checkout has been confirmed
  * @param {() => void} onContinue - returns to the shop (and resets `placed`/cart upstream)
  */
 export default function CartPage({ cart, onQty, onRemove, total, onPlaceOrder, placed, onContinue }) {
+  const [showCheckout, setShowCheckout] = useState(false);
+
+  function handleConfirmCheckout(details) {
+    // Demo only — details aren't sent anywhere, just logged for now.
+    console.log("Checkout details:", details);
+    setShowCheckout(false);
+    onPlaceOrder();
+  }
+
   if (placed) {
     return (
       <div className="max-w-md mx-auto text-center ec-pop" style={{ padding: "6rem 1.25rem" }}>
@@ -65,10 +78,7 @@ export default function CartPage({ cart, onQty, onRemove, total, onPlaceOrder, p
         {cart.map((item) => (
           <CartRow key={item.id} item={item} onQty={onQty} onRemove={onRemove} />
         ))}
-        <div
-          className="flex items-center justify-between"
-          style={{ paddingTop: "1.5rem" }}
-        >
+        <div className="flex items-center justify-between" style={{ paddingTop: "1.5rem" }}>
           <span style={{ color: "var(--text-soft)" }}>Subtotal</span>
           <span className="ec-mono text-xl" style={{ color: "var(--accent)" }}>
             ${total.toFixed(2)}
@@ -77,11 +87,18 @@ export default function CartPage({ cart, onQty, onRemove, total, onPlaceOrder, p
         <button
           className="ec-btn ec-btn-primary w-full"
           style={{ marginTop: "1.25rem" }}
-          onClick={onPlaceOrder}
+          onClick={() => setShowCheckout(true)}
         >
           <Sparkles size={16} /> Place order
         </button>
       </div>
+
+      <CheckoutModal
+        open={showCheckout}
+        total={total}
+        onClose={() => setShowCheckout(false)}
+        onConfirm={handleConfirmCheckout}
+      />
     </div>
   );
 }

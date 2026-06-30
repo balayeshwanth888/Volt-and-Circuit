@@ -55,8 +55,12 @@ export default function Navbar({ route, setRoute, cartCount, cartBounce, onLogou
             <span className="text-sm" style={{ color: "var(--text-soft)" }}>
               Hi, {userName?.split(" ")[0] || "friend"}
             </span>
-            <button className="ec-btn-ghost" onClick={onLogout} aria-label="Log out">
-              <LogOut size={17} />
+            <button
+              className="ec-btn ec-btn-outline flex items-center"
+              style={{ gap: "0.4rem", padding: "0.4rem 0.85rem" }}
+              onClick={onLogout}
+            >
+              <LogOut size={15} /> Log out
             </button>
           </div>
         </div>

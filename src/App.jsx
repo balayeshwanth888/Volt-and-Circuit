@@ -129,6 +129,8 @@ export default function App() {
         onLogout={handleLogoutClick}
         userName={user?.name}
       />
+      {/* Spacer to offset the fixed navbar's height so content doesn't render underneath it */}
+      <div aria-hidden="true" style={{ height: "var(--nav-height, 4.5rem)" }} />
       <ConfirmDialog
         open={showLogoutConfirm}
         title="Log out?"
