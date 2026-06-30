@@ -33,12 +33,19 @@ export default function HomePage({ onShopNow, products, loading, cart, onAdd, on
         <div className="ec-hero-inner">
           <span className="ec-eyebrow">VOLT &amp; CIRCUIT</span>
           <h1
-            className="ec-display text-4xl sm:text-6xl mt-3 mb-5 max-w-2xl"
-            style={{ fontWeight: 700, lineHeight: 1.1 }}
+            className="ec-display"
+            style={{
+              fontWeight: 700,
+              lineHeight: 1.1,
+              fontSize: "clamp(2.25rem, 5vw, 3.75rem)",
+              maxWidth: "42rem",
+              marginTop: "0.75rem",
+              marginBottom: "1.25rem",
+            }}
           >
             Tech that keeps up with you.
           </h1>
-          <p className="max-w-xl mb-8" style={{ color: "var(--text-soft)" }}>
+          <p style={{ color: "var(--text-soft)", maxWidth: "36rem", marginBottom: "2rem" }}>
             Curated electronics — phones, audio, cameras, and more — picked for quality,
             not hype. Browse the catalog and find your next favorite device.
           </p>

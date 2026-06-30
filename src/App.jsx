@@ -46,7 +46,7 @@ export default function App() {
     removeFromCart,
     placeOrder,
     resetCart,
-  } = useCart();
+  } = useCart(user?.email ?? null);
   const { products, loadingProducts, productError, fetchProducts } = useProducts();
 
   // Load the catalog the first time the user reaches home or products.
@@ -75,7 +75,6 @@ export default function App() {
 
   function handleLogout() {
     logout();
-    resetCart();
     setRoute("login");
   }
 
