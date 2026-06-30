@@ -23,18 +23,28 @@ export default function ConfirmDialog({ open, title, message, onConfirm, onCance
         onClick={(e) => e.stopPropagation()}
       >
         <div
-          className="flex items-center justify-center rounded-full mb-4"
-          style={{ width: 52, height: 52, background: "rgba(255,92,92,0.12)", color: "var(--warn)" }}
+          className="flex items-center justify-center rounded-full"
+          style={{
+            width: 52,
+            height: 52,
+            background: "rgba(255,92,92,0.12)",
+            color: "var(--warn)",
+            marginBottom: "1rem",
+          }}
         >
           <LogOut size={24} />
         </div>
-        <h2 id="confirm-dialog-title" className="ec-display text-xl mb-2" style={{ fontWeight: 700 }}>
+        <h2
+          id="confirm-dialog-title"
+          className="ec-display text-xl"
+          style={{ fontWeight: 700, marginBottom: "0.5rem" }}
+        >
           {title}
         </h2>
-        <p className="text-sm mb-6" style={{ color: "var(--text-soft)" }}>
+        <p className="text-sm" style={{ color: "var(--text-soft)", marginBottom: "2rem" }}>
           {message}
         </p>
-        <div className="flex gap-3" style={{ width: "100%" }}>
+        <div className="flex" style={{ width: "100%", gap: "0.75rem" }}>
           <button className="ec-btn ec-btn-outline" style={{ flex: 1 }} onClick={onCancel}>
             No
           </button>
