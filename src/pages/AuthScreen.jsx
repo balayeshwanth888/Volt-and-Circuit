@@ -30,26 +30,36 @@ export default function AuthScreen({ mode, onSwitchMode, onLogin, onSignup, load
       <div className="ec-grid" />
       <FloatingIcons />
       <div
-        className="ec-pop relative z-10 w-full max-w-md rounded-3xl shadow-xl p-8 sm:p-10"
-        style={{ background: "var(--panel)", border: "1.5px solid var(--panel-line)" }}
+        className="ec-pop relative z-10 w-full max-w-md rounded-3xl shadow-xl"
+        style={{
+          background: "var(--panel)",
+          border: "1.5px solid var(--panel-line)",
+          padding: "2.25rem",
+        }}
       >
-        <div className="flex justify-center mb-6">
+        <div className="flex justify-center" style={{ marginBottom: "1.5rem" }}>
           <Brand />
         </div>
-        <h1 className="ec-display text-center text-3xl mb-1" style={{ fontWeight: 700 }}>
+        <h1
+          className="ec-display text-center"
+          style={{ fontWeight: 700, fontSize: "1.875rem", marginBottom: "0.4rem" }}
+        >
           {mode === "signup" ? "Create your account" : "Welcome back"}
         </h1>
-        <p className="text-center mb-7" style={{ color: "var(--text-soft)" }}>
+        <p
+          className="text-center"
+          style={{ color: "var(--text-soft)", marginBottom: "1.85rem" }}
+        >
           {mode === "signup"
             ? "Sign up to start browsing the catalog."
             : "Sign in to pick up where you left off."}
         </p>
 
-        <form onSubmit={submit} className="flex flex-col gap-4">
+        <form onSubmit={submit} className="flex flex-col" style={{ gap: "1.1rem" }}>
           {info && (
             <div
-              className="flex items-center gap-2 text-sm rounded-xl px-3 py-2"
-              style={{ background: "rgba(61,224,200,0.12)", color: "var(--accent)" }}
+              className="flex items-center gap-2 text-sm rounded-xl"
+              style={{ background: "rgba(61,224,200,0.12)", color: "var(--accent)", padding: "0.6rem 0.9rem" }}
             >
               {info}
             </div>
@@ -100,14 +110,19 @@ export default function AuthScreen({ mode, onSwitchMode, onLogin, onSignup, load
 
           {error && (
             <div
-              className="flex items-center gap-2 text-sm rounded-xl px-3 py-2"
-              style={{ background: "rgba(255,92,92,0.12)", color: "var(--warn)" }}
+              className="flex items-center gap-2 text-sm rounded-xl"
+              style={{ background: "rgba(255,92,92,0.12)", color: "var(--warn)", padding: "0.6rem 0.9rem" }}
             >
               <AlertCircle size={16} /> {error}
             </div>
           )}
 
-          <button type="submit" className="ec-btn ec-btn-primary mt-2" disabled={loading}>
+          <button
+            type="submit"
+            className="ec-btn ec-btn-primary"
+            style={{ marginTop: "0.4rem" }}
+            disabled={loading}
+          >
             {loading ? (
               <Loader2 size={18} className="animate-spin" />
             ) : (
@@ -119,7 +134,7 @@ export default function AuthScreen({ mode, onSwitchMode, onLogin, onSignup, load
           </button>
         </form>
 
-        <div className="ec-divider-word my-6">or</div>
+        <div className="ec-divider-word" style={{ margin: "1.6rem 0" }}>or</div>
 
         <p className="text-center text-sm" style={{ color: "var(--text-soft)" }}>
           {mode === "signup" ? "Already have an account?" : "New here?"}{" "}

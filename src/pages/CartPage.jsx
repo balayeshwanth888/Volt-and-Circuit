@@ -16,15 +16,17 @@ import CartRow from "../components/CartRow";
 export default function CartPage({ cart, onQty, onRemove, total, onPlaceOrder, placed, onContinue }) {
   if (placed) {
     return (
-      <div className="max-w-md mx-auto px-5 py-24 text-center ec-pop">
+      <div className="max-w-md mx-auto text-center ec-pop" style={{ padding: "6rem 1.25rem" }}>
         <div
-          className="mx-auto mb-5 flex items-center justify-center rounded-full"
-          style={{ width: 72, height: 72, background: "var(--accent)", color: "#06140F" }}
+          className="mx-auto flex items-center justify-center rounded-full"
+          style={{ width: 72, height: 72, background: "var(--accent)", color: "#06140F", marginBottom: "1.25rem" }}
         >
           <Check size={32} />
         </div>
-        <h2 className="ec-display text-3xl mb-2" style={{ fontWeight: 700 }}>Order placed</h2>
-        <p style={{ color: "var(--text-soft)" }} className="mb-7">
+        <h2 className="ec-display text-3xl" style={{ fontWeight: 700, marginBottom: "0.5rem" }}>
+          Order placed
+        </h2>
+        <p style={{ color: "var(--text-soft)", marginBottom: "1.75rem" }}>
           We've started packing it up. This is a demo — nothing was actually charged.
         </p>
         <button className="ec-btn ec-btn-primary" onClick={onContinue}>
@@ -36,10 +38,12 @@ export default function CartPage({ cart, onQty, onRemove, total, onPlaceOrder, p
 
   if (cart.length === 0) {
     return (
-      <div className="max-w-md mx-auto px-5 py-24 text-center ec-pop">
+      <div className="max-w-md mx-auto text-center ec-pop" style={{ padding: "6rem 1.25rem" }}>
         <ShoppingCart size={48} style={{ color: "var(--accent)", margin: "0 auto 1rem" }} />
-        <h2 className="ec-display text-2xl mb-2" style={{ fontWeight: 700 }}>Your cart is empty</h2>
-        <p style={{ color: "var(--text-soft)" }} className="mb-7">
+        <h2 className="ec-display text-2xl" style={{ fontWeight: 700, marginBottom: "0.5rem" }}>
+          Your cart is empty
+        </h2>
+        <p style={{ color: "var(--text-soft)", marginBottom: "1.75rem" }}>
           Nothing in here yet — the catalog is fully stocked and waiting.
         </p>
         <button className="ec-btn ec-btn-primary" onClick={onContinue}>
@@ -50,17 +54,31 @@ export default function CartPage({ cart, onQty, onRemove, total, onPlaceOrder, p
   }
 
   return (
-    <div className="max-w-3xl mx-auto px-5 sm:px-8 py-10">
-      <h1 className="ec-display text-3xl mb-6" style={{ fontWeight: 700 }}>Your cart</h1>
-      <div className="rounded-2xl p-5 sm:p-6" style={{ background: "var(--panel)", border: "1.5px solid var(--panel-line)" }}>
+    <div className="max-w-3xl mx-auto" style={{ padding: "2.5rem 1.25rem" }}>
+      <h1 className="ec-display text-3xl" style={{ fontWeight: 700, marginBottom: "1.5rem" }}>
+        Your cart
+      </h1>
+      <div
+        className="rounded-2xl"
+        style={{ background: "var(--panel)", border: "1.5px solid var(--panel-line)", padding: "1.5rem" }}
+      >
         {cart.map((item) => (
           <CartRow key={item.id} item={item} onQty={onQty} onRemove={onRemove} />
         ))}
-        <div className="flex items-center justify-between pt-5">
+        <div
+          className="flex items-center justify-between"
+          style={{ paddingTop: "1.5rem" }}
+        >
           <span style={{ color: "var(--text-soft)" }}>Subtotal</span>
-          <span className="ec-mono text-xl" style={{ color: "var(--accent)" }}>${total.toFixed(2)}</span>
+          <span className="ec-mono text-xl" style={{ color: "var(--accent)" }}>
+            ${total.toFixed(2)}
+          </span>
         </div>
-        <button className="ec-btn ec-btn-primary w-full mt-5" onClick={onPlaceOrder}>
+        <button
+          className="ec-btn ec-btn-primary w-full"
+          style={{ marginTop: "1.25rem" }}
+          onClick={onPlaceOrder}
+        >
           <Sparkles size={16} /> Place order
         </button>
       </div>
