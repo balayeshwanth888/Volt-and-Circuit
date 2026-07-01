@@ -9,6 +9,7 @@ import AboutPage from "./pages/AboutPage";
 import ContactPage from "./pages/ContactPage";
 import CartPage from "./pages/CartPage";
 import WishlistPage from "./pages/WishlistPage";
+import ProductDetailPage from "./pages/ProductDetailPage";
 import useAuth from "./hooks/useAuth";
 import useCart from "./hooks/useCart";
 import useProducts from "./hooks/useProducts";
@@ -26,6 +27,7 @@ export default function App() {
   const [route, setRoute] = useState("login");
   const [justSignedUp, setJustSignedUp] = useState(false);
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
   const {
     user,
@@ -105,6 +107,14 @@ export default function App() {
     setRoute("products");
   }
 
+  function handleViewDetail(product) {
+    setSelectedProduct(product);
+  }
+
+  function handleBackFromDetail() {
+    setSelectedProduct(null);
+  }
+
   if (route === "login" || route === "signup") {
     return (
       <div className="ec-shell">
@@ -156,6 +166,7 @@ export default function App() {
             taggedId={taggedId}
             isWishlisted={isWishlisted}
             onToggleWishlist={toggleWishlist}
+            onViewDetail={handleViewDetail}
           />
         )}
         {route === "products" && (
@@ -170,6 +181,7 @@ export default function App() {
             onRetry={fetchProducts}
             isWishlisted={isWishlisted}
             onToggleWishlist={toggleWishlist}
+            onViewDetail={handleViewDetail}
           />
         )}
         {route === "about" && <AboutPage />}
@@ -181,6 +193,7 @@ export default function App() {
             onAdd={addToCart}
             onQty={updateQty}
             onToggleWishlist={toggleWishlist}
+            onViewDetail={handleViewDetail}
             onBrowse={() => setRoute("products")}
           />
         )}
@@ -196,6 +209,29 @@ export default function App() {
           />
         )}
       </div>
+
+      {/* Product detail overlay — rendered on top of whichever page is active */}
+      {selectedProduct && (
+        <div
+          style={{
+            position: "fixed",
+            inset: 0,
+            zIndex: 40,
+            background: "var(--bg)",
+            overflowY: "auto",
+          }}
+        >
+          <ProductDetailPage
+            product={selectedProduct}
+            qty={cart.find((i) => i.id === selectedProduct?.id)?.qty || 0}
+            wishlisted={isWishlisted(selectedProduct?.id)}
+            onAdd={addToCart}
+            onQty={updateQty}
+            onToggleWishlist={toggleWishlist}
+            onBack={handleBackFromDetail}
+          />
+        </div>
+      )}
       <Footer />
     </div>
   );

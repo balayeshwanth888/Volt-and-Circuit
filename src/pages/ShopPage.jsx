@@ -1,18 +1,6 @@
 import { AlertCircle } from "lucide-react";
 import ProductCard from "../components/ProductCard";
 
-/**
- * The product grid / catalog page.
- *
- * @param {object[]} products - product list from the Fake Store API
- * @param {boolean} loading - true while the initial fetch is in flight (shows skeletons)
- * @param {string|null} error - error message if the fetch failed
- * @param {object[]} cart - current cart items, used to look up each product's quantity
- * @param {(product: object) => void} onAdd - add-to-cart handler, passed down to each card
- * @param {(id: number, delta: number) => void} onQty - increment/decrement handler, passed down to each card
- * @param {number|null} taggedId - id of the product currently showing the "ADDED" tag
- * @param {() => void} onRetry - re-runs the fetch (shown alongside the error banner)
- */
 export default function ShopPage({
   products,
   loading,
@@ -24,6 +12,7 @@ export default function ShopPage({
   onRetry,
   isWishlisted,
   onToggleWishlist,
+  onViewDetail,         // ← was missing here
 }) {
   function qtyFor(id) {
     return cart.find((i) => i.id === id)?.qty || 0;
@@ -75,6 +64,7 @@ export default function ShopPage({
                 tagged={taggedId === p.id}
                 wishlisted={isWishlisted(p.id)}
                 onToggleWishlist={onToggleWishlist}
+                onViewDetail={onViewDetail}   // ← was missing here
                 style={{ animationDelay: `${Math.min(i, 10) * 0.05}s` }}
               />
             ))}
