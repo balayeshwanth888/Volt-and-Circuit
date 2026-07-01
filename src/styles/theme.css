@@ -243,3 +243,60 @@
   display:flex; flex-direction:column; align-items:center; text-align:center;
   box-shadow:0 24px 48px -16px rgba(0,0,0,0.5);
 }
+
+/* Fade + slide up animation */
+@keyframes ec-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ec-anim-in {
+  animation: ec-fade-up 0.6s ease-out both;
+}
+
+/* Cards start invisible until they scroll into view */
+.ec-anim-pending {
+  opacity: 0;
+}
+
+/* Button micro-interactions */
+.ec-btn-hover {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.ec-btn-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+.ec-btn-arrow {
+  transition: transform 0.2s ease;
+}
+.ec-btn-hover:hover .ec-btn-arrow {
+  transform: translateX(4px);
+}
+
+/* Feature cards get a slight lift on hover too */
+.ec-feature-card {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.ec-feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+}
+@keyframes ec-float {
+  0%, 100% {
+    transform: translateY(-50%) translateY(0px);
+  }
+  50% {
+    transform: translateY(-50%) translateY(-18px);
+  }
+}
+
+.ec-float {
+  animation: ec-float 5s ease-in-out infinite;
+}
